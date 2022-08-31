@@ -1,23 +1,23 @@
-int nP = 50;
+int nP = 2;
 Particula[] p = new Particula[nP];
 float rColor = random(180);
 
-
+//boolean sketchFullScreen() {
+//  return false;
+//}
 
 void setup() {
-  size(displayWidth, displayHeight, P3D);
+  size(5000, 5000);
   background(0);
   colorMode(HSB);
-  frameRate(30);
+  frameRate(10);
   for (int i = 0; i < nP; i++) {
     p[i] = new Particula(rColor);
   }
 }
 
 void draw() {
-fill(0,30);
-noStroke();
-rect(0,0,width, height);
+
   pushMatrix();
   translate(width/2, height/2);
 
@@ -30,7 +30,7 @@ rect(0,0,width, height);
 
 void keyPressed() {
   if (key == ' ') {
-    saveFrame("image####.png");
+    saveFrame("image#####.png");
   } else if (key == 'r') {
     
     fill(0, 150);

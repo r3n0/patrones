@@ -10,7 +10,7 @@ class Particula {
   float COntro;
 
   Particula(float _rColor) {
-    escala = int(random(1, 4)) * 5;
+    escala = int(random(1, 4)) * 30;
     angulo = (TWO_PI / (int(random(1, 3)) * triFor));
 
     segnemtoDeCirculo  = int(random(1, 3)) * triFor;
@@ -27,11 +27,11 @@ class Particula {
   void check() {
     float condicion = random(1);
     float magnitud = pos.mag();
-    if (magnitud > height - 100) {
+    if (magnitud > height/2 - 100) {
       vel.mult(-1);
     } else {
       strokeWeight(escala * 2/3);
-      stroke(tono, 255, 255, 10);
+      stroke(tono, 255, 255, 20);
       dibujar();
       if (COntro <= 0.5) {
         setIntervalo();
@@ -47,7 +47,7 @@ class Particula {
   }
 
   void update() {
-    PVector pPos = pos.get();
+    PVector pPos = pos.copy();
 
     vel.normalize();
     vel.mult(intervalo);
@@ -55,7 +55,7 @@ class Particula {
 
     noFill();
     strokeWeight(escala/5);
-    stroke(tono, 255, 255, 255);
+    stroke(tono, 255, 255, 20);
     for (int i = 0; i < segnemtoDeCirculo; i++) {
       line(pPos.x, pPos.y, pos.x, pos.y);
       line(-pPos.x, pPos.y, -pos.x, pos.y);
@@ -65,9 +65,6 @@ class Particula {
 
 
   void dibujar() {
-    noFill();
-    strokeWeight(escala/2);
-    stroke(tono, 255, 255, 255);
     for (int i = 0; i < segnemtoDeCirculo; i++) {
       point(pos.x, pos.y);
       point(-pos.x, pos.y);
@@ -79,4 +76,3 @@ class Particula {
     intervalo = int(random(1, 5)) * int(escala );
   }
 }
-
