@@ -6,13 +6,13 @@ class Particula {
   int intervalo;
   float angulo;
   int segnemtoDeCirculo;
-  int triFor = 5;
 
   Particula(float _rColor) {
-    escala = int(random(1, 8)) * 20;
-    angulo = (TWO_PI / (int(random(1, 3)) * triFor));
+    escala = int(random(1, 4)) * 5;
+    angulo = TWO_PI / 3;
 
-    segnemtoDeCirculo = int(random(1, 3)) * triFor;
+    segnemtoDeCirculo = int(random(1, 3)) *3;
+    //pos = new PVector(0,0);
     pos = PVector.random2D();
     pos.mult(random(height/2 - 50));
     vel = new PVector(1, 0);
@@ -21,30 +21,36 @@ class Particula {
     setIntervalo();
   }
 
-  void check(float _COntro) {
+  void check() {
     float condicion = random(1);
+    float condicion2 = random(1);
+
+    float magnitud = pos.mag();
+
+    if (magnitud > height/2 - 50) {
+      vel.mult(-1);
+    }
 
     if (frameCount % intervalo == 0) {
-
-      float magnitud = pos.mag();
-      if (magnitud > height/2 ) {
-        vel.mult(-1);
-      } else {
-        strokeWeight(escala);
-        stroke(tono, 255, 255, 50);
-        dibujar();
-
-        if (_COntro <= 0.5) {
-          setIntervalo();
+      if (condicion < 0.5) {
+        if (condicion2 < 0.5) {
           vel.rotate(angulo);
         } else {
-          if (condicion < 0.5) {
-            vel.rotate(angulo);
-          } else {
-            vel.rotate(-angulo);
-          }
+          vel.rotate(angulo/2);
+        }
+      } else {
+        if (condicion2 < 0.5) {
+          vel.rotate(-angulo);
+        } else {
+          vel.rotate(-angulo/2);
         }
       }
+      
+      noFill();
+      strokeWeight(escala/2);
+      stroke(tono, 255, 255, 30);
+      dibujar();
+      setIntervalo();
     }
   }
 
@@ -54,8 +60,8 @@ class Particula {
 
   void display() {
     noFill();
-    strokeWeight(escala/3);
-    stroke(tono, 255, 255, 5);
+    strokeWeight(escala/6);
+    stroke(tono, 255, 255, 10);
     dibujar();
   }
 
@@ -68,6 +74,7 @@ class Particula {
   }
 
   void setIntervalo() {
-    intervalo = int(random(1, 5)) * 2 * int(escala );
+    intervalo = int(random(2, 4)) * int(escala);
   }
 }
+
